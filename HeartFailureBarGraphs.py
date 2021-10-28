@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-dataset = pd.read_csv('C:/Users/Isaac/Desktop/HeartDisease/heart.csv')
+dataset = pd.read_csv('C:/Users/Isaac/Desktop/HeartFailure/heart.csv')
 #print(dataset)
 
     
@@ -88,39 +88,34 @@ def Ages(ds):
     
     
     
-# =============================================================================
-# def ChestPains(ds):
-#     
-#     chest_pains = ds['ChestPainType'].value_counts().sort_index()
-#     
-#     plt.figure(figsize = (300,100))
-#     
-#     chest_pains = ds['ChestPainType'].value_counts().sort_values(ascending = False)
-#     
-#     plt.figure(figsize = (300,100))
-#     
-#     plt.rcParams['font.size'] = 200
-#     plt.xlabel("Age", fontsize = 300, color = 'red', labelpad = 150)
-#     plt.ylabel("Number of ages", fontsize = 300, color = 'red', labelpad = 100)
-#     plt.title("Total ages descending order", fontsize = 300, color = 'red')
-#     
-#     ax = chest_pains.plot(kind = 'bar', edgecolor = 'black', linewidth = 30, width =1, color = 'cyan', align = 'center')
-#     
-#     plt.ylim(0,100)
-#     plt.yticks(np.arange(0,105,5))
-#     plt.xticks(rotation = 0)
-#     
-#     for i, v in chest_pains.reset_index().iterrows():
-#         ax.text(i-.4, v.ChestPainType + 3 , v.ChestPainType, color='red', fontsize = 200)
-#     
-#     plt.show()
-#
-# =============================================================================
+def ChestPains(ds):
+    
+    chest_pains = ds['ChestPainType'].value_counts().sort_index()
+
+    
+    plt.figure(figsize = (100,100))
+    
+    plt.rcParams['font.size'] = 200
+    plt.xlabel("Chest Pain Type", fontsize = 300, color = 'red', labelpad = 150)
+    plt.ylabel("Chest Pain Count", fontsize = 300, color = 'red', labelpad = 100)
+    plt.title("Total chest pain type count", fontsize = 300, color = 'red')
+    
+    ax = chest_pains.plot(kind = 'bar', edgecolor = 'black', linewidth = 30, width =1, color = 'cyan', align = 'center')
+    
+    plt.ylim(0,700)
+    plt.yticks(np.arange(0,500,100))
+    plt.xticks(rotation = 0)
+    
+    for i, v in chest_pains.reset_index().iterrows():
+        ax.text(i - .2, v.ChestPainType + 5, v.ChestPainType, color='red', fontsize = 200)
+    
+    plt.show()
+
+
+
     
     
-    
-SexCount(dataset)
-Ages(dataset)  
+ChestPains(dataset) 
     
     
     

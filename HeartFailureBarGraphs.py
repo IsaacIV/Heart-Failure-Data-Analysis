@@ -119,43 +119,45 @@ def RestingBP(ds):
     
     resting_BPs = ds['RestingBP'].value_counts().sort_index()
     
-    plt.figure(figsize = (100,100))
-    
+    plt.figure(figsize = (500,500))
+        
+    plt.legend(labels = ['Total Deaths'])
+    plt.title("Resting Beats Per Second")
     plt.rcParams['font.size'] = 200
-    plt.xlabel("Resting Beats Per Minute", fontsize = 300, color = 'red', labelpad =150)
-    plt.ylabel("RBP Count", fontsize = 300, color = 'red', labelpad= 100)
-    plt.title("Total Resting Beats Per Minute", fontsize = 300, color = 'red')
-    theLegend = mpatches.Patch(label = 'Total 918',edgecolor = 'black', color = 'cyan')
-    plt.legend(handles = [theLegend])
+    plt.xlabel('RBP',fontsize = 200, color = 'red',labelpad = 200)
+    plt.ylabel('Total BP')
     
-    bins = [0,20,40,60,80,100,120,140,160,180,200]
+    ax = resting_BPs.plot.bar(color = 'cyan', edgecolor = 'black', width = 2, align = 'edge')
     
-    xticks = [(bins[idx+1] + value)/2 for idx, value in enumerate(bins[:-1])]
-
-    arr = plt.hist(ds['RestingBP'], bins = bins, edgecolor = 'black', linewidth = 30, color = 'cyan')
-    #ax =resting_BPs.plot(kind = 'hist',bins = 10, edgecolor = 'black', linewidth = 30, width = 1, color = 'cyan')
+    for i, v in resting_BPs.reset_index().iterrows():
+        ax.text(i - .2, v.RestingBP + 5, v.RestingBP, color='red', fontsize = 200)
     
-    plt.ylim(0.200)
-    plt.yticks(np.arange(0,600,100))
-    plt.xticks(np.arange(0,220,20),rotation = 0)
     
-    totals = arr.sum(axis = 1)
+# =============================================================================
+#     plt.rcParams['font.size'] = 200
+#     plt.xlabel("Resting Beats Per Minute", fontsize = 300, color = 'red')
+#     plt.ylabel("RBP Count", fontsize = 300, color = 'red')
+#     plt.title("Total Resting Beats Per Minute", fontsize = 300, color = 'red')
+#     theLegend = mpatches.Patch(label = 'Total 918',edgecolor = 'black', color = 'cyan')
+#     plt.legend(handles = [theLegend])
+#     
+#     #bins = [0,20,40,60,80,100,120,140,160,180,200]
+#     
+# 
+#     #arr = plt.hist(ds['RestingBP'], bins = bins, edgecolor = 'black', linewidth = 30, color = 'cyan')
+#     ax =resting_BPs.plot(kind = 'bar', edgecolor = 'black', color = 'cyan')
+#     
+#     plt.ylim(0.200)
+#     plt.yticks(np.arange(0,200,50))
+#     #plt.xticks(np.arange(0,220,20),rotation = 0)
+# =============================================================================
     
-    y_offset = 4
-    
-    for i, total in enumerate(totals):
-        arr.text(totals.index[i], total + y_offset, round(total), ha='center',
-          weight='bold')
-    
-    for idx, value in enumerate(arr):
-        if value > 0:
-            plt.text(xticks[idx], value+5, int(value), ha='center')
     
     plt.show()
     
     
     
-RestingBP(dataset)   
+RestingBP(dataset)  
     
     
     
